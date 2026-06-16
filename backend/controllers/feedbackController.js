@@ -38,3 +38,27 @@ exports.createFeedback = async (req, res) => {
 
   }
 };
+
+/**
+ * Retrieves all feedback entries
+ */
+exports.getFeedbacks = async (req, res) => {
+  try {
+    const feedbacks = await Feedback.find()
+      .sort({ createdAt: -1 }); // Sort by most recent feedback first
+
+    res.status(200).json({
+      success: true,
+      count: feedbacks.length,
+      data: feedbacks,
+    });
+  } 
+  catch (error) {
+    console.error("Error fetching feedback:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
