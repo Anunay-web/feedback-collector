@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
+/**
+ * Stores feedback submitted by users
+ */
+
 const feedbackSchema = new mongoose.Schema({
     name: {
         type: String,
