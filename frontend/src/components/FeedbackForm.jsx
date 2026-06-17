@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { createFeedback } from "../services/feedbackService";
 
 const FeedbackForm = () => {
+    
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,10 +17,23 @@ const FeedbackForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-  };
+    try {
+    const response = await createFeedback(formData);
+    
+    console.log(response);
+
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
+}
+    catch (error) {
+    console.error("Error submitting feedback:", error);
+    } 
+}
 
   return (
     <form onSubmit={handleSubmit}>
