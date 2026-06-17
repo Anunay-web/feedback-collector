@@ -40,12 +40,25 @@ exports.createFeedback = async (req, res) => {
 };
 
 /**
- * Retrieves all feedback entries
+ * Retrieves feedback entries with optional keyword filtering
  */
 exports.getFeedbacks = async (req, res) => {
   try {
-    const feedbacks = await Feedback.find()
-      .sort({ createdAt: -1 }); // Sort by most recent feedback first
+    const { keyword } = req.query;
+
+    let query = {};
+
+    // Apply search filter when keyword is provided
+    if (keyword) {
+      query.$or = [
+        { name: { $regex: keyword, $options: "i" } },
+        { email: { $regex: keyword, $options: "i" } },
+        { message: { $regex: keyword, $options: "i" } },
+      ];
+    }
+
+    const feedbacks = await Feedback.find(query)
+      .sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
