@@ -19,7 +19,7 @@ exports.createFeedback = async (req, res) => {
       name,
       email,
       message,
-    })
+    });
 
     res.status(201).json({
       success: true,
@@ -68,6 +68,40 @@ exports.getFeedbacks = async (req, res) => {
   } 
   catch (error) {
     console.error("Error fetching feedback:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+
+/**
+ * Deletes a feedback entry by its ID
+ */
+exports.deleteFeedback = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const feedback = await Feedback.findById(id);
+
+    if (!feedback) {
+      return res.status(404).json({
+        success: false,
+        message: "Feedback not found",
+      });
+    }
+
+    await Feedback.findByIdAndDelete(id);
+
+    res.status(200).json({
+      success: true,
+      message: "Feedback deleted successfully",
+    });
+  } 
+  catch (error) {
+    console.error("Error deleting feedback:", error);
 
     res.status(500).json({
       success: false,
