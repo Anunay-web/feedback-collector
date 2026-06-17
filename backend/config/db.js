@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Establishes connection with MongoDB Atlas
+// Establishes connection with MongoDB
 const connectDB = async () => {
     try {
         const conn =  await mongoose.connect(process.env.MONGO_URI);

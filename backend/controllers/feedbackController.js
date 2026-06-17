@@ -2,6 +2,8 @@ const Feedback = require("../models/Feedback");
 
 /**
  * Creates a new feedback entry
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
  */
 exports.createFeedback = async (req, res) => {
   try {
@@ -40,7 +42,9 @@ exports.createFeedback = async (req, res) => {
 };
 
 /**
- * Retrieves feedback entries with optional keyword filtering
+ * Retrieves feedback entries with optional keyword filterin
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
  */
 exports.getFeedbacks = async (req, res) => {
   try {
@@ -79,6 +83,8 @@ exports.getFeedbacks = async (req, res) => {
 
 /**
  * Deletes a feedback entry by its ID
+  * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
  */
 exports.deleteFeedback = async (req, res) => {
   try {
