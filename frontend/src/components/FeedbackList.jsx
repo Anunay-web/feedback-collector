@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { deleteFeedback, getFeedbacks } from "../services/feedbackService";
 import FeedbackItem from "./FeedbackItem";
+import ModalComponent from "./ModalComponent";
 
 const FeedbackList = () => {
 
@@ -8,7 +9,8 @@ const FeedbackList = () => {
   const [keyword, setKeyword] = useState("");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
   useEffect(() => {
     /**
      * Fetches all feedback entries from the backend
@@ -38,17 +40,23 @@ const FeedbackList = () => {
     console.error("Error filtering feedback:", error);
   }
 };  
-  const handleDelete = async (id) => {
+  const confirmDelete = async () => {
   try {
-    await deleteFeedback(id);
+    await deleteFeedback(selectedId);
 
     setFeedbacks(
-      feedbacks.filter((feedback) => feedback._id !== id)
+      feedbacks.filter((feedback) => feedback._id !== selectedId)
     );
+    setIsModalOpen(false);
+    setSelectedId(null);
   }
   catch (error) {
     console.error(error);
   }
+};
+  const handleDeleteClick = (id) => {
+  setSelectedId(id);
+  setIsModalOpen(true);
 };
 
   return (
@@ -73,9 +81,17 @@ const FeedbackList = () => {
       <FeedbackItem
         key={feedback._id}
         feedback={feedback}
-        onDelete={handleDelete}
+        onDelete={handleDeleteClick}
       />
     ))}
+    <ModalComponent
+     isOpen={isModalOpen}
+     onClose={() => {
+       setIsModalOpen(false);
+       setSelectedId(null);
+     }}
+     onConfirm={confirmDelete}
+    />
     </div>
   )
 }
