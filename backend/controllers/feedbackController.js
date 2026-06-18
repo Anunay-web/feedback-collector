@@ -4,6 +4,7 @@ const Feedback = require("../models/Feedback");
  * Creates a new feedback entry
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
+ * @route POST /api/feedback
  */
 exports.createFeedback = async (req, res) => {
   try {
@@ -42,13 +43,14 @@ exports.createFeedback = async (req, res) => {
 };
 
 /**
- * Retrieves feedback entries with optional keyword filterin
+ * Retrieves feedback entries with optional keyword and date filtering
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
+ * @route GET /api/feedback
  */
 exports.getFeedbacks = async (req, res) => {
   try {
-    const { keyword } = req.query;
+    const { keyword, from, to } = req.query;
 
     let query = {};
 
@@ -59,6 +61,14 @@ exports.getFeedbacks = async (req, res) => {
         { email: { $regex: keyword, $options: "i" } },
         { message: { $regex: keyword, $options: "i" } },
       ];
+    }
+
+    // Apply date range filter when both from and to dates are provided
+    if(from && to){
+      query.createdAt = {
+        $gte: new Date(from),
+        $lte: new Date(to)
+      };
     }
 
     const feedbacks = await Feedback.find(query)
@@ -83,8 +93,9 @@ exports.getFeedbacks = async (req, res) => {
 
 /**
  * Deletes a feedback entry by its ID
-  * @param {Object} req - Express request object
+ * @param {Object} req - Express request object
  * @param {Object} res - Express response object
+ * @route DELETE /api/feedback/:id
  */
 exports.deleteFeedback = async (req, res) => {
   try {

@@ -27,6 +27,9 @@ const FeedbackList = () => {
     fetchFeedbacks();
   }, [keyword]);
 
+/**
+* Filters feedback entries using keyword and date range
+*/
   const handleFilter = async () => {
   try {
     const response = await getFeedbacks(
@@ -40,6 +43,10 @@ const FeedbackList = () => {
     console.error("Error filtering feedback:", error);
   }
 };  
+
+/**
+* Deletes the selected feedback entry
+*/
   const confirmDelete = async () => {
   try {
     await deleteFeedback(selectedId);
@@ -54,6 +61,11 @@ const FeedbackList = () => {
     console.error(error);
   }
 };
+
+/**
+* Opens the delete confirmation modal
+* @param {string} id - Feedback ID
+*/
   const handleDeleteClick = (id) => {
   setSelectedId(id);
   setIsModalOpen(true);

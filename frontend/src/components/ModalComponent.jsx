@@ -1,3 +1,10 @@
+/**
+ * Confirmation modal for feedback deletion
+ * @param {Object} props - Component props
+ * @param {boolean} props.isOpen - Controls modal visibility
+ * @param {Function} props.onClose - Closes modal
+ * @param {Function} props.onConfirm - Confirms deletion
+ */
 const ModalComponent = ({
   isOpen,
   onClose,

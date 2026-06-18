@@ -9,6 +9,10 @@ const FeedbackForm = () => {
     message: "",
   });
 
+/**
+ * Updates form state when input values change
+ * @param {Object} e - Input change event
+*/
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -17,6 +21,10 @@ const FeedbackForm = () => {
     }));
   };
 
+/**
+ * Submits feedback data to the backend
+ * @param {Object} e - Form submit event
+*/
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
