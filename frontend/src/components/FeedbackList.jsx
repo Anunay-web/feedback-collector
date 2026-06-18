@@ -6,6 +6,8 @@ const FeedbackList = () => {
 
   const [feedbacks, setFeedbacks] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
 
   useEffect(() => {
     /**
@@ -22,7 +24,20 @@ const FeedbackList = () => {
     };
     fetchFeedbacks();
   }, [keyword]);
-  
+
+  const handleFilter = async () => {
+  try {
+    const response = await getFeedbacks(
+      keyword,
+      from,
+      to
+    );
+
+    setFeedbacks(response.data);
+  } catch (error) {
+    console.error("Error filtering feedback:", error);
+  }
+};  
 
   return (
     <div>
@@ -32,6 +47,15 @@ const FeedbackList = () => {
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       />
+      <input
+      type="date"
+      value={from}
+      onChange={(e) => setFrom(e.target.value)} />
+      <input
+      type="date"
+      value={to}
+      onChange={(e) => setTo(e.target.value)} />
+      <button onClick={handleFilter}>Filter</button>
       <h1>Feedback List</h1>
       {feedbacks.map((feedback) => (
       <FeedbackItem
