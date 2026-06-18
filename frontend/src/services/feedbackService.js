@@ -34,3 +34,13 @@ export const getFeedbacks = async (
     
     return response.data;
 }
+
+/**
+ * Deletes a feedback entry
+ * @param {string} id - Feedback ID
+ */
+export const deleteFeedback = async (id) => {
+    const response = await axios.delete(`${API_URL}/${id}`);
+
+    return response.data;
+}

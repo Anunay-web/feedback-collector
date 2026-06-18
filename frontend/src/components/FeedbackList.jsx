@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getFeedbacks } from "../services/feedbackService";
+import { deleteFeedback, getFeedbacks } from "../services/feedbackService";
 import FeedbackItem from "./FeedbackItem";
 
 const FeedbackList = () => {
@@ -38,6 +38,18 @@ const FeedbackList = () => {
     console.error("Error filtering feedback:", error);
   }
 };  
+  const handleDelete = async (id) => {
+  try {
+    await deleteFeedback(id);
+
+    setFeedbacks(
+      feedbacks.filter((feedback) => feedback._id !== id)
+    );
+  }
+  catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <div>
@@ -61,6 +73,7 @@ const FeedbackList = () => {
       <FeedbackItem
         key={feedback._id}
         feedback={feedback}
+        onDelete={handleDelete}
       />
     ))}
     </div>
