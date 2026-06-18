@@ -5,6 +5,7 @@ import FeedbackItem from "./FeedbackItem";
 const FeedbackList = () => {
 
   const [feedbacks, setFeedbacks] = useState([]);
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     /**
@@ -12,7 +13,7 @@ const FeedbackList = () => {
     */
     const fetchFeedbacks = async () => {
       try {
-        const response = await getFeedbacks();
+        const response = await getFeedbacks(keyword);
         setFeedbacks(response.data);
       } 
       catch (error) {
@@ -20,11 +21,17 @@ const FeedbackList = () => {
       }
     };
     fetchFeedbacks();
-  }, []);
+  }, [keyword]);
   
-  
+
   return (
     <div>
+      <input
+        type="text"
+        placeholder="Search feedback..."
+        value={keyword}
+        onChange={(e) => setKeyword(e.target.value)}
+      />
       <h1>Feedback List</h1>
       {feedbacks.map((feedback) => (
       <FeedbackItem

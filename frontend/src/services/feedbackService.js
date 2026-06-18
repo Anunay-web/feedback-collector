@@ -12,7 +12,18 @@ export const createFeedback = async (feedbackData) => {
   return response.data;
 };
 
-export const getFeedbacks = async () => {
-    const response = await axios.get(API_URL);
+
+/**
+ * Retrieves feedback entries with optional search keyword
+ * @param {string} keyword - Search term
+ */
+export const getFeedbacks = async (keyword="") => {
+    const response = await axios.get(API_URL,
+         {
+    params: {
+      keyword,
+    },
+  }
+    );
     return response.data;
 }
