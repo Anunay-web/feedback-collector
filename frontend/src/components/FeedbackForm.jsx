@@ -20,10 +20,7 @@ const FeedbackForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    const response = await createFeedback(formData);
-    
-    console.log(response);
-
+    await createFeedback(formData);
     setFormData({
       name: "",
       email: "",
@@ -36,7 +33,7 @@ const FeedbackForm = () => {
 }
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 bg-white border border-gray-200 rounded-xl shadow-sm max-w-2xl mx-auto">
+    <form onSubmit={handleSubmit} className="w-full p-6 bg-white border border-gray-200 rounded-xl shadow-sm lg:max-w-md xl:max-w-lg">
       <h2 className="text-xl font-bold text-gray-900 mb-5">Share Your Feedback</h2>
       <div className="mb-4">
         <label className="block text-sm font-semibold text-gray-700 mb-1.5">Name</label>

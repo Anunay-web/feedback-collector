@@ -63,15 +63,15 @@ const FeedbackList = () => {
     <div className="max-w-5xl mx-auto my-10 px-6 font-sans text-gray-800">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-2">
-          User Feedback Management
+          Feedback Collector
         </h1>
         <p className="text-gray-500">
           Review and manage customer reviews.
         </p>
       </header>
 
-      <section className="p-5 mb-8 bg-gray-50 border border-gray-200 rounded-xl flex flex-wrap gap-5 items-end">
-        <div className="flex-1 min-w-[250px]">
+      <section className="mb-6 flex flex-wrap lg:flex-nowrap items-end gap-3 pb-4 border-b border-gray-200">
+        <div className="flex-1 min-w-[200px]">
           <input
           type="text"
           placeholder="Search by name, email, or message..."
@@ -81,7 +81,7 @@ const FeedbackList = () => {
           />
         </div>
         
-        <div className="flex flex-wrap items-end gap-2">
+        <div className="flex items-end gap-2">
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold uppercase text-gray-600 tracking-wider">From</label>
           <input
@@ -92,7 +92,8 @@ const FeedbackList = () => {
           />         
           </div>
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold uppercase text-gray-600 tracking-wider">To</label>
+            <label className="text-xs font-semibold uppercase text-gray-400">
+              To</label>
           <input
           type="date"
           value={to}
@@ -103,7 +104,7 @@ const FeedbackList = () => {
           </div>
           <button 
             onClick={handleFilter}
-            className="h-10 px-5 rounded-lg text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-150 cursor-pointer"
+            className="h-10 px-4 rounded-lg text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors cursor-pointer whitespace-nowrap"
           >
             Apply Filters
           </button>
@@ -113,27 +114,34 @@ const FeedbackList = () => {
             setFrom("")
             setTo("")
           }}
-          className="h-10 px-5 rounded-lg text-sm font-medium border border-gray-300 hover:bg-gray-100 cursor-pointer"
+          className="h-10 px-4 rounded-lg text-sm text-gray-600 font-medium border border-gray-300 hover:bg-gray-50 cursor-pointer"
           >
           Clear
           </button>
         </div>
       </section>
-
-      <div>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-semibold">
+          Feedback Entries
+          </h2>
+          <span className="text-sm text-gray-500">
+            {feedbacks.length} entries
+            </span>
+            </div>
+      <div className="bg-white border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-100 overflow-hidden">
         {feedbacks.length === 0 ? (
           <div className="text-center py-[60px] bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 text-gray-500">
             <p>No feedback entries found matching your criteria.</p>
           </div>
         ) : (
-          <div className="flex flex-wrap -m-3">
+          <div className="flex flex-col gap-4">
             {feedbacks.map((feedback) => (
-              <div key={feedback._id} className="w-full p-3 sm:w-1/2 md:w-1/3">
+                
                 <FeedbackItem
+                key={feedback._id}
                   feedback={feedback}
                   onDelete={handleDeleteClick}
                 />
-              </div>
             ))}
           </div>
         )}
