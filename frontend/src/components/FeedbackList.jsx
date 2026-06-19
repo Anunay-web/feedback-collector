@@ -72,7 +72,7 @@ const FeedbackList = () => {
 };
 
   return (
-    <div className="max-w-5xl mx-auto my-10 px-6 font-sans text-gray-800">
+    <div className="max-w-5xl mx-auto my-10 px-4 sm:px-6 font-sans text-gray-800">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-2">
           Feedback Collector
@@ -93,7 +93,7 @@ const FeedbackList = () => {
           />
         </div>
         
-        <div className="flex items-end gap-2">
+        <div className="flex flex-wrap md:flex-nowrap items-end gap-2 w-full">
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold uppercase text-gray-600 tracking-wider">From</label>
           <input
@@ -140,15 +140,14 @@ const FeedbackList = () => {
             {feedbacks.length} entries
             </span>
             </div>
-      <div className="bg-white border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-100 overflow-hidden">
+      <div className="bg-white border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-100">
         {feedbacks.length === 0 ? (
           <div className="text-center py-[60px] bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 text-gray-500">
             <p>No feedback entries found matching your criteria.</p>
           </div>
         ) : (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col">
             {feedbacks.map((feedback) => (
-                
                 <FeedbackItem
                 key={feedback._id}
                   feedback={feedback}
