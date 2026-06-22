@@ -172,4 +172,4 @@ Anunay Kumar
 
 B.Tech Computer Science & Engineering
 
-MERN Stack Developer
+Full Stack Developer
